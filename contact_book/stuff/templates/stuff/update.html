@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update/Delete Contact</title>
+    <link href="{% static 'css/bootstrap.css' %}" rel="stylesheet">
+    <style>
+        body {
+            background-color: #343a40;
+            color: #ffffff;
+        }
+        .navbar, .card {
+            background-color: #212529;
+        }
+        .form-control, .btn {
+            border-radius: 0.25rem;
+        }
+        .btn-primary, .btn-danger {
+            border-color: transparent;
+            width: 100%;
+        }
+        .btn-primary {
+            background-color: #007bff;
+        }
+        .btn-primary:hover {
+            background-color: #0056b3;
+        }
+        .btn-danger {
+            background-color: #dc3545;
+        }
+        .btn-danger:hover {
+            background-color: #c82333;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <a class="navbar-brand" href="#">Contact Book</a>
+        <div class="ml-auto">
+            <a href="{% url 'home' %}" class="btn btn-outline-light">Back to Home</a>
+        </div>
+    </nav>
+
+    <div class="container mt-4">
+        <div class="row">
+            <div class="col-md-6 offset-md-3">
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <h5 class="card-title">Update/Delete Contact</h5>
+                        <form action='{% url 'update' contact.id %}' method='POST' id="update-delete-form">
+                            {% csrf_token %}
+                            <div class="form-group">
+                                <label for="name">Name</label>
+                                <input type="text" class="form-control" name="name" value="{{contact.name}}">
+                            </div>
+                            <div class="form-group">
+                                <label for="phone">Phone Number</label>
+                                <input type="text" class="form-control" name="phone" value="{{contact.phone}}">
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Email</label>
+                                <input type="email" class="form-control" name="email" value="{{contact.email}}">
+                            </div>
+                            <button type="submit" class="btn btn-primary mb-2">Update Contact</button>
+                        </form>
+                        <form action="{% url 'delete' contact.id %}" method='POST'>
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-danger">Delete Contact</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="{% static 'js/jquery.js' %}"></script>
+    <script src="{% static 'js/popper.js' %}"></script>
+    <script src="{% static 'js/bootstrap.js' %}"></script>
+</body>
+</html>
